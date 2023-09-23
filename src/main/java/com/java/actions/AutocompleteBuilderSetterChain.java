@@ -40,9 +40,9 @@ public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionA
             PsiClass[] innerClasses = containingClass.getInnerClasses();
 
             boolean hasLombokBuilder = containingClass.hasAnnotation(LOMBOK_BUILDER);
-            Predicate<PsiClass> hasNotInnerBuilder = innerClass -> !innerClass.getName().toUpperCase().contains("BUILDER");
+            Predicate<PsiClass> hasInnerBuilder = innerClass -> innerClass.getName().toUpperCase().contains("BUILDER");
 
-            var hasBuilderInside = Arrays.stream(innerClasses).anyMatch(hasNotInnerBuilder);
+            var hasBuilderInside = Arrays.stream(innerClasses).anyMatch(hasInnerBuilder);
 
             if (!hasBuilderInside && !hasLombokBuilder) return;
 
