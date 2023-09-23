@@ -1,0 +1,17 @@
+<idea-plugin>
+    <id>com.plugin.test.plugintest</id>
+    <name>Plugintest</name>
+    <vendor email="" url="">My-No-Company</vendor>
+    <description><![CDATA[
+        My First Plugin for autocomplete builder setter chain
+  ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java-capable</depends>
+    <depends>com.intellij.modules.java</depends>
+    <extensions defaultExtensionNs="com.intellij">
+            <intentionAction>
+                <className>com.java.actions.AutocompleteBuilderSetterChain</className>
+                <category>SDK intentions</category>
+            </intentionAction>
+    </extensions>
+</idea-plugin>
