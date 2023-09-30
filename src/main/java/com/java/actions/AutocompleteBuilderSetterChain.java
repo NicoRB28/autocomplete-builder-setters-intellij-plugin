@@ -14,10 +14,7 @@ import com.java.actions.handler.LombokBuilderHandler;
 import com.java.actions.utils.GenericUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static com.java.actions.utils.DebbugUtils.doLog;
@@ -46,15 +43,14 @@ public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionA
 
             if (!hasBuilderInside && !hasLombokBuilder) return;
 
-            String stringToAdd = "";
+            Map<String, String> methodNameWithParamType = Collections.emptyMap();
             if (hasBuilderInside) {
-                Map<PsiMethod, String> methodNameWithParamType = InnerBuilderHandler.handleInnerBuilderImplementation(innerClasses);
-                stringToAdd = GenericUtils.createTextToInsert(BuilderType.INNER_BUILDER, methodNameWithParamType);
+                methodNameWithParamType = InnerBuilderHandler.handleInnerBuilderImplementation(innerClasses);
             }
             if (hasLombokBuilder) {
-                Map<String, String> methodNameWithParamType = LombokBuilderHandler.handleLombokAnnotation(containingClass);
-                stringToAdd = GenericUtils.createTextToInsert(BuilderType.LOMBOK_BUILDER, methodNameWithParamType);
+                methodNameWithParamType = LombokBuilderHandler.handleLombokAnnotation(containingClass);
             }
+            var stringToAdd = GenericUtils.createTextToInsert(methodNameWithParamType);
             insertText(project, element, theParent, stringToAdd);
         }
     }

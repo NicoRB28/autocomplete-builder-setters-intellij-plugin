@@ -7,7 +7,6 @@ import com.intellij.psi.PsiType;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.java.actions.Constants.DEFAULT_VALUES;
 import static com.java.actions.utils.GenericUtils.safeExtraction;
 
 public class LombokBuilderHandler {
@@ -23,9 +22,5 @@ public class LombokBuilderHandler {
             }
         }
         return methodNameWithParamType;
-    }
-
-    public static String mapper(Map.Entry<String, String> entry) {
-        return entry.getKey() + "(" + DEFAULT_VALUES.get(entry.getValue().toUpperCase())+")";
     }
 }
