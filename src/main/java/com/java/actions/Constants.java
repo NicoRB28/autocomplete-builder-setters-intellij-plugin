@@ -20,5 +20,10 @@ public class Constants {
         DEFAULT_VALUES.put("BIGINTEGER", "BigInteger.valueOf(20000000)");
     }
 
+    public static final Map<String, String> DEFAULT_IMPORTS = new HashMap<>();
+    static {
+        DEFAULT_IMPORTS.put("BigDecimal","java.math.BigDecimal");
+        DEFAULT_IMPORTS.put("BigInteger","java.math.BigInteger");
+    }
     private Constants() {}
 }

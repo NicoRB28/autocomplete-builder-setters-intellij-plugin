@@ -6,19 +6,19 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.util.IncorrectOperationException;
 import com.java.actions.handler.InnerBuilderHandler;
 import com.java.actions.handler.LombokBuilderHandler;
-import com.java.actions.utils.GenericUtils;
+import com.java.actions.utils.DocumentUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import static com.java.actions.utils.DebbugUtils.doLog;
-import static com.java.actions.utils.DocumentUtils.insertText;
 import static java.util.Objects.requireNonNull;
 
 public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionAction {
@@ -43,16 +43,21 @@ public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionA
 
             if (!hasBuilderInside && !hasLombokBuilder) return;
 
-            Map<String, String> methodNameWithParamType = Collections.emptyMap();
+            HandleResult handleResult = null;
             if (hasBuilderInside) {
-                methodNameWithParamType = InnerBuilderHandler.handleInnerBuilderImplementation(innerClasses);
+                handleResult = InnerBuilderHandler.handleInnerBuilderImplementation(innerClasses);
             }
             if (hasLombokBuilder) {
-                methodNameWithParamType = LombokBuilderHandler.handleLombokAnnotation(containingClass);
+                handleResult = LombokBuilderHandler.handleLombokAnnotation(containingClass);
             }
-            var stringToAdd = GenericUtils.createTextToInsert(methodNameWithParamType);
-            insertText(project, element, theParent, stringToAdd);
+            writeToDoc(project, element, handleResult);
         }
+    }
+
+    private void writeToDoc(@NotNull Project project, @NotNull PsiElement element, HandleResult handleResult) {
+        var documentUtils  = new DocumentUtils(project, element);
+        documentUtils.insertImports(handleResult.importsToAdd());
+        documentUtils.insertText(element.getParent(), handleResult.getTextToBeInserted());
     }
 
     @Override
