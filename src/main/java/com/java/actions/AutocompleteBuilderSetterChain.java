@@ -56,7 +56,7 @@ public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionA
 
     private void writeToDoc(@NotNull Project project, @NotNull PsiElement element, HandleResult handleResult) {
         var documentUtils  = new DocumentUtils(project, element);
-        documentUtils.insertImports(handleResult.importsToAdd());
+        documentUtils.insertImports(handleResult.getImports());
         documentUtils.insertText(element.getParent(), handleResult.getTextToBeInserted());
     }
 
