@@ -32,7 +32,7 @@ public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionA
         var theParent = element.getParent();
         var children = theParent.getChildren();
         var theMethodCall = children[0];
-        if (theMethodCall instanceof PsiMethodCallExpression method) {
+         if (theMethodCall instanceof PsiMethodCallExpression method) {
             var containingClass = method.resolveMethod().getContainingClass();
             PsiClass[] innerClasses = containingClass.getInnerClasses();
 
@@ -68,7 +68,6 @@ public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionA
             PsiClass containingClass = requireNonNull(methodCall.resolveMethod()).getContainingClass();
             return containingClass != null && validate(containingClass);
         }
-        doLog(String.format("La validacion dio: %s", false));
         return false;
     }
 

@@ -24,6 +24,9 @@ public class Constants {
     static {
         DEFAULT_IMPORTS.put("BigDecimal","java.math.BigDecimal");
         DEFAULT_IMPORTS.put("BigInteger","java.math.BigInteger");
+        DEFAULT_IMPORTS.put("Map","java.util.Map");
+        DEFAULT_IMPORTS.put("Set","java.util.Set");
+        DEFAULT_IMPORTS.put("List","java.util.List");
     }
     private Constants() {}
 }
