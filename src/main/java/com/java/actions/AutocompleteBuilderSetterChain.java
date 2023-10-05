@@ -15,17 +15,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Predicate;
 
-import static com.java.actions.utils.DebbugUtils.doLog;
+import static com.java.actions.Constants.LOMBOK_BUILDER;
+import static com.java.actions.Predicates.hasInnerBuilder;
+import static com.java.actions.utils.GenericUtils.safeExtraction;
 import static java.util.Objects.requireNonNull;
 
 public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionAction {
-
-    private static final String LOMBOK_BUILDER = "lombok.Builder";
-    private static final Predicate<PsiClass> containsABuilderImplementation = innerClass ->
-            Optional.ofNullable(innerClass.getName()).orElse("").toUpperCase().contains("BUILDER");
 
     @Override
     public void invoke(@NotNull Project project, Editor editor, @NotNull PsiElement element) throws IncorrectOperationException {
@@ -90,7 +87,8 @@ public class AutocompleteBuilderSetterChain extends BaseElementAtCaretIntentionA
         return Arrays
                 .stream(containedClass.getInnerClasses())
                 .filter(Objects::nonNull)
-                .anyMatch(containsABuilderImplementation);
+                .map(psiClass -> safeExtraction(psiClass::getName, ""))
+                .anyMatch(hasInnerBuilder);
     }
 
     /**

@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
+
+    public static final String LOMBOK_BUILDER = "lombok.Builder";
     public static final Map<String, Object> DEFAULT_VALUES = new HashMap<>();
-    //TODO: seguir agregando tipos default
     static {
         DEFAULT_VALUES.put("STRING",  "\"\"");
         DEFAULT_VALUES.put("LONG",    0L);
