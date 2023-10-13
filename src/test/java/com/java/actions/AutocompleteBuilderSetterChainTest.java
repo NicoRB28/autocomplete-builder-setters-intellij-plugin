@@ -15,7 +15,7 @@ public class AutocompleteBuilderSetterChainTest extends LightJavaCodeInsightFixt
 
     @Test
     public void testOne() {
-        doTest("BuilderChain");
+        doTest("BuilderChain-inline");
     }
 
     protected void doTest(String testName) {
