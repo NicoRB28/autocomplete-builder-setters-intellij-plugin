@@ -10,6 +10,11 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    //testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    //testImplementation("junit:junit:4.13.2")
+}
 
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
